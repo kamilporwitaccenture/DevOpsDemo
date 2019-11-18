@@ -1,0 +1,9 @@
+version: '3'
+services:
+        hello_flask:
+                image: flask-sample:latest
+                container_name: hello_app_flask
+                environment:
+                        - discovery.type=single-node
+                ports:
+                        - "4010:4000"
