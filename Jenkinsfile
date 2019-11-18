@@ -18,11 +18,11 @@ pipeline {
 			stage('SCM') {
 				git 'https://github.com/kamilporwitaccenture/DevOpsDemo.git'
 			}
-		}	
-		stage('SonarQube analysis') {
-			def scannerHome = tool 'SonarScanner 4.0';
-			withSonarQubeEnv('SonarQube') {
-				sh "${scannerHome}/bin/sonar-scanner"
+			stage('SonarQube analysis') {
+				def scannerHome = tool 'SonarScanner 4.0';
+				withSonarQubeEnv('SonarQube') {
+					sh "${scannerHome}/bin/sonar-scanner"
+				}
 			}
 		}
 	}
