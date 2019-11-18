@@ -11,7 +11,7 @@ pipeline {
 				}
 			}
 			steps {
-				sh 'python -m py_compile app/hello.py'
+				sh 'python -m py_compile hello.py'
 			}
 		}
 	}
