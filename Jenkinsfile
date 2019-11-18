@@ -4,14 +4,21 @@ pipeline {
 		skipStagesAfterUnstable()
 	}
 	stages{
-		stage('SCM') {
-			steps {
-				git url: 'https://github.com/kamilporwitaccenture/DevOpsDemo.git'
+		stage('Build') {
+			agent {
+				docker {
+					image 'python:2-alpine'
+				}
 			}
-		}		
-		stage('Build and SonarQube analysis') {
 			steps {
-				def scannerHome = tool 'SonarScanner 4.0';
+				sh 'python -m py_compile app/hello.py'
+			}
+		}
+		stage('Build and SonarQube analysis') {
+			environment {
+				scannerHome = tool 'SonarQubeScanner'
+			}
+			steps {
 				withSonarQubeEnv('SonarQube') {
 					sh "${scannerHome}/bin/sonar-scanner"
 				}
