@@ -1,8 +1,25 @@
-node {
-	stage('SonarQube analysis') {
-		def scannerHome = tool 'SonarQubeScanner';
-		withSonarQubeEnv('SonarQube') {
-			sh "${scannerHome}/bin/sonar-scanner"
+pipeline {
+	agent any
+	stages{
+		stage('SonarQube analysis') {
+			steps {
+				script {
+					scannerHome = tool 'SonarQubeScanner'
+				}
+				withSonarQubeEnv('SonarQube') {
+					sh "${scannerHome}/bin/sonar-scanner"
+				}
+			}
+		}
+		stage('Build') {
+			agent {
+				docker {
+					image 'python:2-alpine'
+				}
+			}
+			steps {
+				sh 'python -m py_compile app/hello.py'
+			}
 		}
 	}
 }
