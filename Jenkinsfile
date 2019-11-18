@@ -1,16 +1,16 @@
 pipeline {
 	agent any
 	stages{
-		//stage('SonarQube analysis') {
-		//	steps {
-		//		script {
-		//			scannerHome = tool 'SonarQubeScanner'
-		//		}
-		//		withSonarQubeEnv('SonarQube') {
-		//			sh '${scannerHome}/bin/sonar-scanner'
-		//		}
-		//	}
-		//}
+		stage('SonarQube analysis') {
+			environment {
+				scannerHome = tool 'SonarQubeScanner'
+			}
+			steps {
+				withSonarQubeEnv('SonarQube') {
+					sh '${scannerHome}/bin/sonar-scanner'
+				}
+			}
+		}
 		stage('Build') {
 			agent {
 				docker {
@@ -38,7 +38,7 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-				sh 'docker-compose up -d'
+				sh 'echo hello world'
 			}
 		}
 	}
