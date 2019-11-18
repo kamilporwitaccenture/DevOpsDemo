@@ -7,11 +7,11 @@ pipeline {
 		stage('Build') {
 			agent {
 				docker {
-					image 'flask-sample:latest'
+					image 'python:2-alpine'
 				}
 			}
 			steps {
-				sh 'python -m py_compile hello.py'
+				sh 'python -m py_compile app/hello.py'
 			}
 		}
 	}
