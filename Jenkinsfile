@@ -21,14 +21,19 @@ pipeline {
 				sh 'python -m py_compile app/hello.py'
 			}
 		}
-		stage('Test') {
-			steps {
-				sh 'echo test'
+		stage('Delivery') {
+			agent {
+				docker {
+					image 'cdrx/pyinstaller-linux:python2'
+				}
 			}
-		}
-		stage('Deploy') {
 			steps {
-				sh 'docker-compose up -d'
+				sh 'pyinstaller --onefile app/hello.py'
+			}
+			post {
+				success {
+					archiveArtifacts 'dist/hello'
+				}
 			}
 		}
 	}
