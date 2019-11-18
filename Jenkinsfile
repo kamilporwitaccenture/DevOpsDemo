@@ -21,6 +21,11 @@ pipeline {
 				sh 'python -m py_compile app/hello.py'
 			}
 		}
+		stage('Test') {
+			steps {
+				sh 'echo test'
+			}
+		}
 		stage('Deploy') {
 			steps {
 				sh 'docker-compose up -d'
