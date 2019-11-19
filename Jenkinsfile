@@ -42,7 +42,7 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-				sh 'echo hello world'
+				sh 'docker build -t flask-sample:latest .'
 			}
 		}
 	}
