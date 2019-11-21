@@ -43,6 +43,7 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				sh 'docker build -t flask-sample:latest .'
+				sh 'docker-compose up --detach --build'
 			}
 		}
 	}
